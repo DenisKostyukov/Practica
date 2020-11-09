@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" >
+
+    <input type="search" v-model="searchString" style="display: block;margin: 20px auto;">
+   
+      <table align="center" border="2px" rules="all">
+        <tr>
+          <th>photo</th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>mark</th>
+          <th>Passsed</th>
+          <th></th>
+        </tr>
+        <tr v-for="student in search" style="text-align: center;">
+          <td>{{student.photo}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.group}}</td>
+          <td>{{student.mark}}</td>
+          <td>
+            <input type="checkbox" v-model="student.isDonePr">
+          </td>
+          <td><a href="#" :id="student.id" @click="deleteStudent(student.id)">Delete</a></td>
+        </tr>
+      </table> 
+      <div class="addNew" style="width: 600px; display: block;margin: 20px auto;">
+        <input type="text" placeholder="name" v-model.lazy="newStudent.name">
+        <select type="text" placeholder="group" v-model="newStudent.group">
+          <option value="РПЗ 17 1/9">РПЗ 17 1/9</option>
+          <option value="РПЗ 17 2/9">РПЗ 17 2/9</option>
+        </select>
+        <input type="number" value=2000 placeholder="year of birth"v-model.number="newStudent.yearOfBith">
+        <input type="checkbox" v-model.trim="newStudent.passed">
+        <button @click="addNew()">Добавить</button>
+      </div>
+    
+  </div>
+  <div id="changeStyle"  v-bind:style="styleobj" v-on:mouseover="changebgcolor" v-on:mouseout="originalcolor" >
+
+  </div> 
+  <script src="main.js"></script>
+</body>
+</html>
