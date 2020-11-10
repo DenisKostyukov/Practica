@@ -6,7 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-
+<style>
+  .convertor-wrapper{
+    width: 683px;
+    display: block;
+    margin: 0 auto;
+  }
+  .data{
+    text-align: center;
+  }
+</style>
 <body>
   <div id="app" >
 
@@ -44,9 +53,35 @@
       </div>
     
   </div>
-  <div id="changeStyle"  v-bind:style="styleobj" v-on:mouseover="changebgcolor" v-on:mouseout="originalcolor" >
-
-  </div> 
+  <div id="changeStyle"  v-bind:style="styleobj" v-on:mouseover="changebgcolor" v-on:mouseout="originalcolor" ></div>
+  
+  <div id="convertor">
+    <div class="convertor-wrapper">
+      <h1 style="text-align: center;">Конвертор валют</h1>
+      <span>Amount:</span><input type="number" v-model="amount"> <br>
+      <span>Convert from: </span>
+      <select id="convertFrom" v-model="convertFrom" v-on:change="getFrom() ">
+        <option value="UAH">UAH</option>
+        <option value="USD">USD</option>
+        <option value="RUR">RUB</option>
+        <option value="EUR">EUR</option>
+        <option value="BTC">BTC</option>
+      </select> 
+      <span>Convert to:</span>
+      <select name="" id="convertTo" v-model="convertTo" v-on:change="getTo() ">
+        <option value="UAH">UAH</option>
+        <option value="USD">USD</option>
+        <option value="RUR">RUB</option>
+        <option value="EUR">EUR</option>
+        <option value="BTC">BTC</option>
+      </select>
+      <button @click="result()">result</button>
+      <p>Результат:{{converted}}</p>
+      <div class="data" v-for="info in bankData">
+        <p>{{info}}</p>
+      </div>
+    </div>
+  </div>
   <script src="main.js"></script>
 </body>
 </html>
