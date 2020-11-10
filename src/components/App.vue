@@ -5,7 +5,6 @@
       v-model="searchString"
       style="display: block; margin: 20px auto"
     />
-
     <table align="center" border="2px" rules="all">
       <tr>
         <th>photo</th>
