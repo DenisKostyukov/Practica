@@ -108,15 +108,14 @@ export default {
       console.log(response.data);
       this.students = response.data;
     });
-  },
-  mounted: function () {
-    axios
+    Vue.axios
       .get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5")
       .then((response) => {
         console.log(response.data);
         this.bankData = response.data;
       });
   },
+
   methods: {
     deleteStudent: function (_id) {
       Vue.axios
