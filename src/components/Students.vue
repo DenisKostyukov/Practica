@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-bind:class="myTheme">
+    <input type="checkbox" v-on:change="change()" />
     <input
       type="search"
       v-model="searchString"
@@ -52,7 +53,9 @@
       <input type="checkbox" v-model="selectStudent.isDonePr" />
       <button @click="addNew()">Добавить</button>
       <button @click="editStudent()">edit</button>
+      <p>Количество студентов: {{ getCount }}</p>
     </div>
+
     <h1 style="text-align: center">
       <router-link v-bind:to="'/convertor/'">Конвертор валют </router-link>
     </h1>
@@ -68,6 +71,7 @@ export default {
   data: function () {
     return {
       students: [],
+
       selectStudent: {
         photo: this.photo,
         name: this.name,
@@ -77,16 +81,45 @@ export default {
       },
       searchString: "",
       id: "",
+      myTheme: "",
     };
   },
-  mounted: function () {
-    Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
+  mounted: async function () {
+    /*Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
       console.log(response.data);
       this.students = response.data;
-    });
-  },
+    });*/
+    let response = await Vue.axios.get("http://46.101.212.195:3000/students");
+    console.log(response.data);
+    this.students = response.data;
+    this.$store.commit("setCount", this.students.length);
 
+    if (this.getTheme) {
+      this.myTheme = this.getTheme;
+    } else {
+      this.myTheme = "theme1";
+
+      this.$store.commit("setTheme", this.myTheme);
+    }
+  },
+  computed: {
+    getCount() {
+      return this.$store.getters.getCount;
+    },
+    getTheme() {
+      return this.$store.getters.getTheme;
+    },
+  },
   methods: {
+    change() {
+      if (this.myTheme == "theme1") {
+        this.myTheme = "theme2";
+        this.$store.commit("setTheme", this.myTheme);
+      } else if (this.myTheme == "theme2") {
+        this.myTheme = "theme1";
+        this.$store.commit("setTheme", this.myTheme);
+      }
+    },
     deleteStudent: function (_id) {
       Vue.axios
         .delete("http://46.101.212.195:3000/students/" + _id)
@@ -137,4 +170,12 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style  scoped>
+.theme1 {
+  background-color: rgb(52, 199, 23);
+}
+
+.theme2 {
+  background-color: rgb(221, 236, 9);
+}
+</style>
