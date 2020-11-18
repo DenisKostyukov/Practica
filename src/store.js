@@ -7,10 +7,12 @@ const store =new Vuex.Store({
   plugins: [createPersistedState()],
   state:{
     count:0,
+    user:null,
   },
   mutations:{
     setCount:(state,c)=>state.count=c,
-    setTheme: (state, t) => state.theme = t
+    setTheme: (state, t) => state.theme = t,
+    setUser: (state, user) => state.user=user,
   },
   getters:{
     getCount: (state)=>
@@ -19,8 +21,10 @@ const store =new Vuex.Store({
     },
     getTheme: (state) => {
       return state.theme
+    },
+    getUser:(state)=>{
+      return state.user
     }
-
   }
 })
 export default store;

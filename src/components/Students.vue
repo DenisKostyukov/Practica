@@ -85,10 +85,6 @@ export default {
     };
   },
   mounted: async function () {
-    /*Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
-      console.log(response.data);
-      this.students = response.data;
-    });*/
     let response = await Vue.axios.get("http://46.101.212.195:3000/students");
     console.log(response.data);
     this.students = response.data;
@@ -108,6 +104,9 @@ export default {
     },
     getTheme() {
       return this.$store.getters.getTheme;
+    },
+    getCurrentUser() {
+      return this.$store.getters.getUser;
     },
   },
   methods: {
