@@ -33,7 +33,7 @@
           <input type="checkbox" v-model="student.isDonePr" />
         </td>
         <td>
-          <a href="#" :id="student._id" @click="deleteStudent(student._id)"
+          <a href="#" :id="student._id" @click.prevent="deleteStudent(student._id)" v-show="student.group==getCurrentUser.group"
             >Delete</a
           >
         </td>
